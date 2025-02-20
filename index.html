@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamento de Horas Complementares</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            background-color: #f9f9f9;
+            color: #003366;
+        }
+
+        .sidebar {
+            background-color: #003366;
+            padding: 20px;
+            width: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .sidebar img {
+            max-width: 100%;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #990000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #660000;
+        }
+
+        .results {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #003366;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover td {
+            background-color: #f1f1f1;
+        }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #e3e3e3;
+        }
+
+        .category-header {
+            font-weight: bold;
+            text-align: left;
+            background-color: #f1f1f1;
+            padding: 12px;
+            font-size: 16px;
+            color: #003366;
+        }
+
+        .category-header:hover {
+            background-color: #e3e3e3;
+        }
+
+        .category-table {
+            margin-bottom: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="https://lh3.googleusercontent.com/proxy/LZY8IpYaot31pBlUA_diW7dtVjU9xp9IPKPEp4u_VJu0UMfZKVSZ_age29XsFCYn91KWuCj3QQ" alt="Logo UEMG">
+        <h2>ENGENHARIA DA COMPUTAÇÃO</h2>
+    </div>
+    <div class="content">
+        <h1>Lançamento de Horas Complementares</h1>
+        <form id="hoursForm">
+            <label for="description">Descrição da Atividade:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="category">Categoria da Atividade:</label>
+            <select id="category" name="category" required>
+                <option value="" disabled selected>Selecione</option>
+                <option value="Extensão">Extensão</option>
+                <option value="Ensino">Ensino</option>
+                <option value="Pesquisa">Pesquisa</option>
+            </select>
+
+            <label for="type">Tipo de Atividade:</label>
+            <select id="type" name="type" required>
+                <option value="" disabled selected>Selecione</option>
+            </select>
+
+            <label for="hours">Total de Horas da Atividade:</label>
+            <input type="number" id="hours" name="hours" required min="1">
+
+            <button type="submit">Adicionar Atividade</button>
+        </form>
+
+        <div class="results" id="results">
+            <h2>Resumo das Horas</h2>
+            
+            <!-- Extensão -->
+            <div class="category-table">
+                <div class="category-header">Extensão</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Horas Declaradas</th>
+                            <th>Horas Aproveitadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="extensaoBody">
+                        <!-- Atividades de Extensão serão adicionadas aqui -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="2">Total de Horas de Extensão</td>
+                            <td colspan="2" id="totalHoursExtensao">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Ensino -->
+            <div class="category-table">
+                <div class="category-header">Ensino</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Horas Declaradas</th>
+                            <th>Horas Aproveitadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ensinoBody">
+                        <!-- Atividades de Ensino serão adicionadas aqui -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="2">Total de Horas de Ensino</td>
+                            <td colspan="2" id="totalHoursEnsino">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Pesquisa -->
+            <div class="category-table">
+                <div class="category-header">Pesquisa</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descrição</th>
+                            <th>Tipo</th>
+                            <th>Horas Declaradas</th>
+                            <th>Horas Aproveitadas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pesquisaBody">
+                        <!-- Atividades de Pesquisa serão adicionadas aqui -->
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="2">Total de Horas de Pesquisa</td>
+                            <td colspan="2" id="totalHoursPesquisa">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- Total de Horas Complementares -->
+            <div class="total-hours">
+                <h3>Total de Horas Complementares: <span id="totalGeral">0</span></strong></h3>
+            </div>
+        </div>
+    </div>
+
+    <script src="controle.js" type="module"></script>
+</body>
+</html>
